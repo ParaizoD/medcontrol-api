@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api import auth
+from app.api import auth, import_routes, medicos_routes, pacientes_routes, procedimentos_routes, dashboard_routes
 from app.database import engine, Base
 
 # Criar tabelas no banco
@@ -27,6 +27,11 @@ app.add_middleware(
 
 # Incluir rotas
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
+app.include_router(import_routes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(medicos_routes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(pacientes_routes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(procedimentos_routes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(dashboard_routes.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

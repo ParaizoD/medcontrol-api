@@ -13,12 +13,6 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class LoginResponse(BaseModel):
-    accessToken: str
-    refreshToken: Optional[str] = None
-    user: "UserResponse"
-
-
 # ============================================
 # USER
 # ============================================
@@ -64,6 +58,13 @@ class UserResponse(BaseModel):
             roles=roles,
             avatar=None
         )
+
+
+# LoginResponse agora vem DEPOIS de UserResponse estar definida
+class LoginResponse(BaseModel):
+    accessToken: str
+    refreshToken: Optional[str] = None
+    user: UserResponse  # Agora já está definida acima
 
 
 class UserInDB(UserBase):
