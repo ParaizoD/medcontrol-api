@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     
     # CORS
-    CORS_ORIGINS: str = "http://localhost:5173"
+    CORS_ORIGINS=https://medcontrol-paraizodaniels-projects.vercel.app,http://localhost:5173
     
     @property
     def cors_origins_list(self) -> List[str]:
