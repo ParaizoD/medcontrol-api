@@ -53,6 +53,17 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     
     return encoded_jwt
 
+def decode_access_token(token: str) -> Optional[dict]:
+    """
+    Decode and verify a JWT access token
+    Returns the payload if valid, None otherwise
+    """
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        return payload
+    except JWTError:
+        return None
+
 def verify_token(token: str) -> Optional[str]:
     """
     Verify a JWT token and return the email if valid
