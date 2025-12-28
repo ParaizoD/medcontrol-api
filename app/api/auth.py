@@ -93,3 +93,30 @@ def get_me(current_user: User = Depends(get_current_user)):
     Retorna dados do usuário logado
     """
     return UserResponse.from_user(current_user)
+
+@router.post("/generate-hash")
+def generate_hash(password: str):
+    """
+    TEMPORÁRIO: Gerar hash de senha
+    REMOVER após configurar usuário admin!
+    """
+    from app.core.security import hash_password
+    
+    print(f"🔧 Gerando hash para senha: {password}")
+    
+    hashed = hash_password(password)
+    
+    print(f"🔧 Hash gerado: {hashed}")
+    
+    # Testar imediatamente
+    test_result = verify_password(password, hashed)
+    
+    print(f"🔧 Teste de verificação: {test_result}")
+    
+    return {
+        "password": password,
+        "hash": hashed,
+        "hash_length": len(hashed),
+        "verification_test": test_result,
+        "sql": f"UPDATE users SET hashed_password = '{hashed}' WHERE email = 'admin@medcontrol.com';"
+    }
