@@ -9,7 +9,7 @@ import uuid
 # ============================================
 
 class LoginRequest(BaseModel):
-    username: str  # Pode ser email
+    email: str  
     password: str
 
 

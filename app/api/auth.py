@@ -25,7 +25,7 @@ def login(
     """
     
     # Buscar usuário por email
-    user = db.query(User).filter(User.email == credentials.username).first()
+    user = db.query(User).filter(User.email == credentials.email).first()
     
     # Validações
     if not user:
