@@ -4,9 +4,6 @@ from app.core.config import settings
 from app.api import auth, import_routes, medicos_routes, pacientes_routes, procedimentos_routes, dashboard_routes
 from app.database import engine, Base
 
-# Criar tabelas no banco
-Base.metadata.create_all(bind=engine)
-
 # Criar aplicação FastAPI
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -19,11 +16,14 @@ app = FastAPI(
 # Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Criar tabelas no banco
+Base.metadata.create_all(bind=engine)
 
 # Incluir rotas
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
