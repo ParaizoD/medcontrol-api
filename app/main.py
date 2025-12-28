@@ -16,7 +16,14 @@ app = FastAPI(
 # Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://medcontrol-three.vercel.app",
+        "https://medcontrol-paraizodaniels-projects.vercel.app",
+        "https://medcontrol-git-main-paraizodaniels-projects.vercel.app",
+        "https://medcontrol-jsmiu3xq5-paraizodaniels-projects.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:5174",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
