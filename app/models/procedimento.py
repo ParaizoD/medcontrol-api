@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, DateTime, Text, Numeric, ForeignKey
+from sqlalchemy import Column, String, Date, DateTime, Numeric, ForeignKey, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -9,20 +9,27 @@ from app.database import Base
 class Procedimento(Base):
     __tablename__ = "procedimentos"
     
+    # UUID
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    data = Column(Date, nullable=False, index=True)
-    tipo_id = Column(UUID(as_uuid=True), ForeignKey('tipos_procedimento.id'), nullable=False, index=True)
-    medico_id = Column(UUID(as_uuid=True), ForeignKey('medicos.id'), nullable=False, index=True)
-    paciente_id = Column(UUID(as_uuid=True), ForeignKey('pacientes.id'), nullable=False, index=True)
+    
+    # Foreign Keys (UUID)
+    medico_id = Column(UUID(as_uuid=True), ForeignKey("medicos.id"), nullable=False, index=True)
+    paciente_id = Column(UUID(as_uuid=True), ForeignKey("pacientes.id"), nullable=False, index=True)
+    
+    # Dados do procedimento
+    tipo_procedimento = Column(String(200), nullable=False, index=True)
+    data_procedimento = Column(Date, nullable=False, index=True)
+    valor = Column(Numeric(10, 2), nullable=False)
     observacoes = Column(Text)
-    valor = Column(Numeric(10, 2))
+    
+    # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # Relationships (para facilitar queries depois)
-    tipo = relationship("TipoProcedimento")
-    medico = relationship("Medico")
-    paciente = relationship("Paciente")
+    # Relacionamentos
+    medico = relationship("Medico", back_populates="procedimentos")
+    paciente = relationship("Paciente", back_populates="procedimentos")
+    tipo = relationship("TipoProcedimento", back_populates="procedimentos")
     
     def __repr__(self):
-        return f"<Procedimento {self.id} - {self.data}>"
+        return f"<Procedimento {self.tipo_procedimento} - {self.data_procedimento}>"

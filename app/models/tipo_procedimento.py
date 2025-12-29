@@ -16,5 +16,7 @@ class TipoProcedimento(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
+    procedimentos = relationship("Procedimento", back_populates="tipo")
+
     def __repr__(self):
         return f"<TipoProcedimento {self.nome}>"
