@@ -25,7 +25,7 @@ class MenuItem(Base):
         "MenuItem",
         backref="parent",
         remote_side=[id],
-        cascade="all, delete-orphan",
+        cascade="all, delete",
         order_by="MenuItem.order"
     )
     
