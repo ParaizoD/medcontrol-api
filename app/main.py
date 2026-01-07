@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api import auth, import_routes, medicos_routes, pacientes_routes, procedimentos_routes, dashboard_routes
+from app.api import auth, import_routes, medicos_routes, pacientes_routes, procedimentos_routes, dashboard_routes, menu_routes
 from app.database import engine, Base
 
 # Criar aplicação FastAPI
@@ -39,6 +39,7 @@ app.include_router(medicos_routes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(pacientes_routes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(procedimentos_routes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(dashboard_routes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(menu_routes.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")
